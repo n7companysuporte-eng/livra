@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#81405f">
+<title>Livra | Um mundo de histórias</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#a64f78;
+  --dark:#71334f;
+  --light:#f9eaf1;
+  --cream:#fffaf7;
+  --ink:#33232d;
+  --muted:#786b72;
+  --green:#218b59;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--dark);color:white;text-align:center;padding:10px;font-size:11px;letter-spacing:1px}
+header{position:sticky;top:0;z-index:50;background:#fffaf7f5;backdrop-filter:blur(12px);border-bottom:1px solid #f0e2e9}
+.nav{max-width:1200px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Playfair Display',serif;font-size:35px;font-weight:800;color:var(--dark)}
+.logo span{color:#d58aaa}
+.navlinks{display:flex;gap:25px;font-size:13px;font-weight:700}
+.navlinks a:hover{color:var(--pink)}
+.cart-button{border:0;border-radius:30px;background:var(--pink);color:white;padding:11px 17px;font-weight:800}
+.cart-count{display:inline-grid;place-items:center;background:white;color:var(--dark);width:21px;height:21px;border-radius:50%;margin-left:5px;font-size:11px}
+
+.hero{
+ min-height:520px;display:flex;align-items:center;color:white;
+ background:linear-gradient(90deg,#281521e8,#28152199,#28152130),
+ url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=85') center/cover;
+}
+.hero-content{max-width:1200px;width:100%;margin:auto;padding:80px 25px}
+.eyebrow{color:#e7aeca;text-transform:uppercase;letter-spacing:3px;font-size:10px;font-weight:800;margin-bottom:15px}
+.hero h1{font:700 clamp(43px,6vw,75px)/1.06 'Playfair Display',serif;max-width:700px;margin-bottom:20px}
+.hero p{max-width:540px;color:#f8eaf0;line-height:1.8;font-size:15px;margin-bottom:28px}
+.primary{display:inline-block;background:#f2c2d8;color:#572b41;border:0;border-radius:30px;padding:15px 24px;font-weight:800;font-size:12px}
+.primary:hover{background:white}
+.hero-note{font-size:11px;color:#f5dce8;margin-top:15px}
+
+.benefits{max-width:1100px;margin:-25px auto 0;position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 20px}
+.benefit{background:white;text-align:center;padding:20px 12px;border-radius:15px;box-shadow:0 10px 30px #532b3e12}
+.benefit strong{display:block;font-size:13px;margin-bottom:5px}
+.benefit span{font-size:11px;color:var(--muted)}
+
+.section{max-width:1200px;margin:auto;padding:70px 22px 25px}
+.heading{text-align:center;margin-bottom:32px}
+.heading .eyebrow{color:var(--pink)}
+.heading h2{font:700 clamp(29px,4vw,43px) 'Playfair Display',serif;margin-bottom:9px}
+.heading p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* BANNERS TEMÁTICOS COM FOTOS DOS BOXES */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.feature{
+ min-height:330px;border-radius:20px;overflow:hidden;position:relative;
+ display:flex;align-items:center;padding:28px;color:white;
+ box-shadow:0 12px 30px #532b3e18;
+}
+.feature.harry{background:linear-gradient(110deg,#172b38,#263d51 60%,#40596a)}
+.feature.colleen{background:linear-gradient(110deg,#703b59,#a45b79 60%,#c58aa0)}
+.feature-content{position:relative;z-index:2;width:62%}
+.feature .eyebrow{color:#f7c9dd;font-size:9px}
+.feature h3{font:700 32px/1.1 'Playfair Display',serif;margin:10px 0}
+.feature p{font-size:12px;line-height:1.7;color:#fff0f5;margin-bottom:18px}
+.feature a{display:inline-block;background:white;color:#573047;padding:11px 15px;border-radius:25px;font-size:10px;font-weight:800}
+.feature img{
+ position:absolute;right:0;top:0;width:45%;height:100%;
+ object-fit:contain;padding:12px;z-index:1;
+ filter:drop-shadow(0 12px 15px #0005);
+}
+
+/* CATÁLOGO */
+.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.search{flex:1;min-width:220px;padding:13px 17px;border:1px solid #ead9e1;border-radius:30px;background:white;outline:none}
+.search:focus{border-color:var(--pink)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{padding:10px 14px;border:1px solid #ead9e1;background:white;border-radius:25px;font-size:11px;font-weight:700}
+.filter.active,.filter:hover{background:var(--pink);color:white;border-color:var(--pink)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.product{background:white;border:1px solid #f0e5ea;border-radius:17px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.product:hover{transform:translateY(-5px);box-shadow:0 12px 30px #532b3e15}
+.product-image{height:245px;background:#fff;position:relative;display:grid;place-items:center;padding:10px}
+.product-image img{width:100%;height:100%;object-fit:contain}
+.tag{position:absolute;top:11px;left:11px;background:#f4dce7;color:#743b56;padding:6px 9px;border-radius:20px;font-size:9px;font-weight:800;z-index:2}
+.product-info{padding:15px;display:flex;flex-direction:column;flex:1}
+.category{color:var(--pink);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.product h3{font:700 18px/1.3 'Playfair Display',serif;min-height:46px}
+.description{font-size:11px;color:var(--muted);line-height:1.6;margin:8px 0 13px;flex:1}
+.price{font-size:22px;color:var(--dark);font-weight:800}
+.price-note{font-size:10px;color:var(--muted);margin:3px 0 13px}
+.add{width:100%;border:0;border-radius:25px;padding:12px;background:var(--pink);color:white;font-weight:800;font-size:11px}
+.add:hover{background:var(--dark)}
+
+.emotional{margin-top:65px;padding:65px 20px;text-align:center;background:linear-gradient(120deg,#71334f,#a64f78);color:white}
+.emotional h2{font:700 clamp(29px,4vw,43px) 'Playfair Display',serif;margin-bottom:14px}
+.emotional p{max-width:650px;margin:0 auto 22px;color:#f8e7ef;font-size:13px;line-height:1.8}
+.emotional .primary{background:white}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.how-card{background:white;border:1px solid #f0e5ea;border-radius:17px;padding:25px;text-align:center}
+.number{margin:0 auto 12px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--light);color:var(--dark);font-weight:800}
+.how-card h3{font-size:14px;margin-bottom:7px}
+.how-card p{font-size:11px;color:var(--muted);line-height:1.7}
+
+footer{margin-top:65px;background:#35232d;color:white;text-align:center;padding:42px 20px}
+footer .logo{color:#f4c7dc}
+footer p{font-size:11px;color:#d9c5cf;margin-top:12px;line-height:1.8}
+footer a{color:#f4c7dc}
+
+/* SACOLA */
+.overlay{position:fixed;inset:0;background:#1e0f1880;z-index:90;display:none}
+.overlay.open{display:block}
+.cart-panel{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);background:white;z-index:100;transform:translateX(105%);transition:.3s;display:flex;flex-direction:column}
+.cart-panel.open{transform:translateX(0)}
+.cart-header{padding:20px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.cart-header h2{font:700 25px 'Playfair Display',serif}
+.close{border:0;background:#f7edf1;color:var(--dark);width:34px;height:34px;border-radius:50%;font-size:20px}
+.cart-items{padding:18px;overflow:auto;flex:1}
+.empty{text-align:center;color:var(--muted);padding:50px 10px;font-size:13px}
+.cart-item{display:grid;grid-template-columns:65px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid #f0e7eb;align-items:center}
+.cart-item img{width:65px;height:75px;object-fit:contain;background:#faf2f6;border-radius:8px}
+.cart-item h4{font-size:12px;margin-bottom:5px}
+.cart-item p{font-size:12px;color:var(--dark);font-weight:800}
+.quantity{display:flex;align-items:center;gap:8px;margin-top:8px}
+.quantity button{border:0;background:#f7eaf0;width:24px;height:24px;border-radius:50%;color:var(--dark);font-weight:800}
+.remove{border:0;background:none;color:#a56c83;font-size:10px;margin-top:5px}
+.cart-footer{padding:20px;border-top:1px solid #eee}
+.total{display:flex;justify-content:space-between;font-weight:800;margin-bottom:15px}
+.checkout{width:100%;padding:15px;background:var(--green);color:white;border:0;border-radius:30px;font-weight:800}
+.checkout:disabled{opacity:.4}
+.hint{font-size:10px;color:var(--muted);line-height:1.6;margin-top:10px}
+
+/* FORMULÁRIO */
+.modal{position:fixed;inset:0;background:#1e0f18a6;z-index:120;display:none;align-items:center;justify-content:center;padding:15px}
+.modal.open{display:flex}
+.modal-box{background:white;width:min(550px,100%);max-height:92vh;overflow:auto;border-radius:20px;padding:24px}
+.modal-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.modal-title h2{font:700 24px 'Playfair Display',serif}
+.modal-box label{display:block;font-size:11px;font-weight:800;margin:13px 0 6px}
+.modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:12px;border:1px solid #eadde4;border-radius:10px;background:white;outline:none;font-size:13px}
+.modal-box input:focus,.modal-box select:focus,.modal-box textarea:focus{border-color:var(--pink)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.send{width:100%;margin-top:18px;padding:15px;border:0;border-radius:30px;background:var(--green);color:white;font-weight:800}
+.whatsapp{position:fixed;right:20px;bottom:20px;z-index:40;width:55px;height:55px;border-radius:50%;display:grid;place-items:center;background:#25d366;color:white;font-size:25px;box-shadow:0 5px 20px #0002}
+
+@media(max-width:900px){.products{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+ .nav{padding:12px 15px}.logo{font-size:29px}.navlinks{display:none}
+ .hero{min-height:460px}.hero-content{padding:65px 22px}.hero h1{font-size:45px}
+ .benefits{grid-template-columns:1fr;margin-top:15px}.benefit{padding:14px}
+ .section{padding:52px 15px 20px}
+ .feature-grid{grid-template-columns:1fr}.feature{min-height:285px;padding:20px}
+ .feature h3{font-size:27px}.feature-content{width:65%}.feature img{width:43%;padding:5px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .product-image{height:180px}.product-info{padding:12px}
+ .product h3{font-size:16px;min-height:42px}.price{font-size:19px}
+ .how{grid-template-columns:1fr}.filters{overflow:auto;flex-wrap:nowrap;padding-bottom:5px}
+ .filter{white-space:nowrap}
+}
+@media(max-width:370px){.products{grid-template-columns:1fr}.product-image{height:230px}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<div class="topbar">LIVRA • HISTÓRIAS QUE APROXIMAM, EMOÇÕES QUE FICAM</div>
+
+<header>
+<nav class="nav">
+ <a href="#" class="logo">livra<span>.</span></a>
+ <div class="navlinks">
+  <a href="#colecoes">Coleções</a>
+  <a href="#catalogo">Livros</a>
+  <a href="#como-comprar">Como comprar</a>
+ </div>
+ <button class="cart-button" onclick="openCart()">Minha sacola <span class="cart-count" id="cartCount">0</span></button>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">Um universo inteiro espera por você</div>
+  <h1>Tem histórias que encontram um lugar no coração.</h1>
+  <p>Entre páginas, personagens e mundos extraordinários, existe uma próxima leitura esperando para fazer parte da sua história. Seja bem-vindo à Livra.</p>
+  <a class="primary" href="#catalogo">ENCONTRE SUA PRÓXIMA LEITURA</a>
+  <div class="hero-note">Sua próxima história favorita pode começar hoje.</div>
+ </div>
+</section>
+
+<section class="benefits">
+ <div class="benefit"><strong>Uma seleção especial</strong><span>Histórias para diferentes gostos e momentos</span></div>
+ <div class="benefit"><strong>Pedido pelo WhatsApp</strong><span>Escolha seus livros e envie seu pedido facilmente</span></div>
+ <div class="benefit"><strong>Enviamos para todo o Brasil</strong><span>Consulte as condições de entrega no atendimento</span></div>
+</section>
+
+<section class="section" id="colecoes">
+ <div class="heading">
+  <div class="eyebrow">Entre no universo das histórias</div>
+  <h2>Escolha o mundo que combina com você</h2>
+  <p>Da magia que encanta às histórias que fazem o coração bater mais forte.</p>
+ </div>
+
+ <div class="feature-grid">
+  <article class="feature harry">
+   <div class="feature-content">
+    <div class="eyebrow">Para quem acredita na magia</div>
+    <h3>O mundo de Harry Potter</h3>
+    <p>Castelos, mistérios, amizade e uma jornada que atravessa gerações. A magia espera por você.</p>
+    <a href="#catalogo" onclick="setCategory('Fantasia')">EXPLORAR FANTASIA</a>
+   </div>
+   <img src="https://livrariasul.cdn.magazord.com.br/img/2024/07/produto/33673/lv441817-1.jpeg?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29" alt="Box Harry Potter edição premium">
+  </article>
+
+  <article class="feature colleen">
+   <div class="feature-content">
+    <div class="eyebrow">Histórias que mexem com você</div>
+    <h3>O universo de Colleen Hoover</h3>
+    <p>Romances intensos, sentimentos profundos e personagens que permanecem com você.</p>
+    <a href="#catalogo" onclick="setCategory('Romance')">EXPLORAR ROMANCES</a>
+   </div>
+   <img src="https://livrariascuritiba.vteximg.com.br/arquivos/ids/2107799-525-525/LV487671.jpg?v=638461964618170000" alt="Box de livros Colleen Hoover">
+  </article>
+ </div>
+</section>
+
+<section class="section" id="catalogo">
+ <div class="heading">
+  <div class="eyebrow">Sua próxima leitura está aqui</div>
+  <h2>Encontre seu próximo favorito</h2>
+  <p>Veja os boxes disponíveis, escolha seus títulos e monte sua sacola.</p>
+ </div>
+
+ <div class="toolbar">
+  <input class="search" id="searchInput" type="search" placeholder="Buscar livro ou coleção..." oninput="renderProducts()">
+  <div class="filters">
+   <button class="filter active" onclick="setCategory('Todos',this)">Todos</button>
+   <button class="filter" onclick="setCategory('Romance',this)">Romance</button>
+   <button class="filter" onclick="setCategory('Fantasia',this)">Fantasia</button>
+   <button class="filter" onclick="setCategory('Ficção',this)">Ficção</button>
+   <button class="filter" onclick="setCategory('Aventura',this)">Aventura</button>
+  </div>
+ </div>
+ <div class="products" id="products"></div>
+</section>
+
+<section class="emotional">
+ <h2>Não compre apenas um livro. Viva uma história.</h2>
+ <p>Tem dias em que tudo o que precisamos é fugir um pouquinho da rotina, conhecer novos personagens e encontrar conforto entre algumas páginas. Na Livra, sua próxima aventura está a poucos cliques.</p>
+ <a href="#catalogo" class="primary">QUERO ESCOLHER MEUS LIVROS</a>
+</section>
+
+<section class="section" id="como-comprar">
+ <div class="heading">
+  <div class="eyebrow">É simples começar</div>
+  <h2>Seu pedido em três passos</h2>
+  <p>Você escolhe, informa seus dados e conversa com nossa equipe.</p>
+ </div>
+ <div class="how">
+  <div class="how-card"><div class="number">1</div><h3>Escolha seus livros</h3><p>Explore as coleções e adicione seus títulos favoritos à sacola.</p></div>
+  <div class="how-card"><div class="number">2</div><h3>Informe seus dados</h3><p>Preencha o endereço e selecione a forma de pagamento desejada.</p></div>
+  <div class="how-card"><div class="number">3</div><h3>Finalize pelo WhatsApp</h3><p>Seu pedido será enviado para nossa equipe confirmar os detalhes.</p></div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="logo">livra<span>.</span></div>
+ <p>Mais do que livros, experiências que ficam com você.</p>
+ <p><a href="#catalogo">Ver catálogo</a> • <a href="#como-comprar">Como comprar</a></p>
+ <p>© 2026 Livra. Todos os direitos reservados.</p>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/5511995901137" target="_blank" aria-label="WhatsApp Livra">✆</a>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="cart-panel" id="cartPanel">
+ <div class="cart-header"><h2>Sua sacola</h2><button class="close" onclick="closeCart()">×</button></div>
+ <div class="cart-items" id="cartItems"></div>
+ <div class="cart-footer">
+  <div class="total"><span>Total dos livros</span><span id="cartTotal">R$ 0,00</span></div>
+  <button class="checkout" id="checkoutButton" onclick="openCheckout()" disabled>CONTINUAR MEU PEDIDO</button>
+  <p class="hint">O frete, quando aplicável, será confirmado no atendimento.</p>
+ </div>
+</aside>
+
+<div class="modal" id="checkoutModal">
+ <div class="modal-box">
+  <div class="modal-title"><h2>Vamos preparar seu pedido!</h2><button class="close" onclick="closeCheckout()">×</button></div>
+  <form id="orderForm">
+   <label for="customerName">Nome completo *</label>
+   <input id="customerName" name="customerName" required placeholder="Seu nome completo">
+
+   <div class="form-row">
+    <div><label for="customerPhone">WhatsApp *</label><input id="customerPhone" name="customerPhone" required placeholder="(11) 99999-9999"></div>
+    <div><label for="customerCep">CEP *</label><input id="customerCep" name="customerCep" required placeholder="00000-000"></div>
+   </div>
+
+   <label for="customerStreet">Rua / Avenida *</label>
+   <input id="customerStreet" name="customerStreet" required placeholder="Nome da rua">
+
+   <div class="form-row">
+    <div><label for="customerNumber">Número *</label><input id="customerNumber" name="customerNumber" required placeholder="Número"></div>
+    <div><label for="customerComplement">Complemento</label><input id="customerComplement" name="customerComplement" placeholder="Apto, bloco..."></div>
+   </div>
+
+   <label for="customerNeighborhood">Bairro *</label>
+   <input id="customerNeighborhood" name="customerNeighborhood" required placeholder="Seu bairro">
+
+   <div class="form-row">
+    <div><label for="customerCity">Cidade *</label><input id="customerCity" name="customerCity" required placeholder="Sua cidade"></div>
+    <div><label for="customerState">Estado *</label>
+     <select id="customerState" name="customerState" required>
+      <option value="">Selecione</option>
+      <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+     </select>
+    </div>
+   </div>
+
+   <label for="paymentMethod">Forma de pagamento *</label>
+   <select id="paymentMethod" name="paymentMethod" required>
+    <option value="">Selecione</option><option>Pix</option><option>Cartão</option><option>Consultar opções</option>
+   </select>
+
+   <label for="orderNotes">Observações</label>
+   <textarea id="orderNotes" name="orderNotes" rows="3" placeholder="Alguma informação adicional?"></textarea>
+
+   <button class="send" type="submit">ENVIAR PEDIDO PELO WHATSAPP</button>
+   <p class="hint">Nossa equipe confirmará disponibilidade, frete e pagamento pelo WhatsApp.</p>
+  </form>
+ </div>
+</div>
+
+<script>
+const WHATSAPP_NUMBER="5511995901137";
+
+/* IMAGENS DOS BOXES:
+   Cada imagem abaixo representa uma coleção/edição identificável.
+   Confirme a edição exata com o produto que será enviado ao comprador.
+*/
+const products=[
+ {id:1,name:"Box Colleen Hoover",category:"Romance",price:39.90,tag:"Romance",description:"Quatro histórias marcantes da autora que conquistou leitores.",image:"https://livrariascuritiba.vteximg.com.br/arquivos/ids/2107799-525-525/LV487671.jpg?v=638461964618170000"},
+ {id:2,name:"Box Trono de Vidro",category:"Fantasia",price:49.70,tag:"Fantasia épica",description:"A série de fantasia de Sarah J. Maas em uma coleção completa.",image:"https://down-br.img.susercontent.com/file/br-11134207-7r98o-m83gvyp1er69dc"},
+ {id:3,name:"Box Harry Potter",category:"Fantasia",price:40.90,tag:"Mundo mágico",description:"Os sete livros da saga em uma coleção para viver a magia.",image:"https://livrariasul.cdn.magazord.com.br/img/2024/07/produto/33673/lv441817-1.jpeg?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29"},
+ {id:4,name:"Box Percy Jackson",category:"Aventura",price:60.00,tag:"Aventura",description:"Mitologia, mistério e aventuras com Percy Jackson.",image:"https://down-br.img.susercontent.com/file/039fa18a1ad4406f3c262ddb50d03daa"},
+ {id:5,name:"Box After",category:"Romance",price:29.90,tag:"Romance",description:"A coleção de cinco livros de Anna Todd.",image:"https://down-br.img.susercontent.com/file/br-11134207-7r98o-mblrq4k4kzxe76"},
+ {id:6,name:"Box As Crônicas de Gelo e Fogo",category:"Fantasia",price:79.90,tag:"Fantasia",description:"A coleção de George R. R. Martin em uma apresentação especial.",image:"https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/dbf94820000025.562e3da08b867.jpg"},
+ {id:7,name:"Box Crepúsculo",category:"Romance",price:74.90,tag:"Romance e fantasia",description:"A saga de Bella e Edward em uma edição comemorativa.",image:"https://livrariascuritiba.vteximg.com.br/arquivos/ids/2217566-1000-1000/LV536493.jpg?v=638863559962770000"},
+ {id:8,name:"Box A Seleção",category:"Romance",price:74.90,tag:"Romance",description:"A coleção de Kiera Cass com vestidos, escolhas e sentimentos.",image:"https://down-br.img.susercontent.com/file/br-11134207-820m3-mp7z5ynt2ccmf7"},
+ {id:9,name:"Box ACOTAR",category:"Fantasia",price:79.90,tag:"Fantasia",description:"A série Corte de Espinhos e Rosas, de Sarah J. Maas.",image:"https://down-br.img.susercontent.com/file/br-11134207-7r98o-m1ok2kr05l1t33"}
+];
+
+let cart=[];
+let activeCategory="Todos";
+
+function money(value){
+ return value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
+
+function renderProducts(){
+ const container=document.getElementById("products");
+ const search=document.getElementById("searchInput").value.toLowerCase().trim();
+
+ const filtered=products.filter(p=>{
+  const categoryMatch=activeCategory==="Todos"||p.category===activeCategory;
+  const searchMatch=p.name.toLowerCase().includes(search)||p.category.toLowerCase().includes(search)||p.description.toLowerCase().includes(search);
+  return categoryMatch&&searchMatch;
+ });
+
+ if(!filtered.length){
+  container.innerHTML='<p style="grid-column:1/-1;text-align:center;padding:35px;color:#786b72">Não encontramos esse título. Tente outra busca.</p>';
+  return;
+ }
+
+ container.innerHTML=filtered.map(p=>`
+  <article class="product">
+   <div class="product-image">
+    <span class="tag">${p.tag}</span>
+    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/500x650/f7edf1/71334f?text=Imagem+indisponivel'">
+   </div>
+   <div class="product-info">
+    <div class="category">${p.category}</div>
+    <h3>${p.name}</h3>
+    <p class="description">${p.description}</p>
+    <div class="price">${money(p.price)}</div>
+    <div class="price-note">Valor por box • Frete a confirmar</div>
+    <button class="add" onclick="addToCart(${p.id})">ADICIONAR À SACOLA</button>
+   </div>
+  </article>
+ `).join("");
+}
+
+function setCategory(category,button){
+ activeCategory=category;
+ document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+ else document.querySelectorAll(".filter").forEach(b=>{if(b.textContent.trim()===category)b.classList.add("active")});
+ renderProducts();
+}
+
+function addToCart(id){
+ const product=products.find(p=>p.id===id);
+ const existing=cart.find(p=>p.id===id);
+ if(existing)existing.quantity++;
+ else cart.push({...product,quantity:1});
+ updateCart();
+ openCart();
+}
+
+function updateCart(){
+ const count=cart.reduce((s,p)=>s+p.quantity,0);
+ const total=cart.reduce((s,p)=>s+p.price*p.quantity,0);
+ document.getElementById("cartCount").textContent=count;
+ document.getElementById("cartTotal").textContent=money(total);
+ document.getElementById("checkoutButton").disabled=cart.length===0;
+
+ const container=document.getElementById("cartItems");
+ if(!cart.length){
+  container.innerHTML='<div class="empty">Sua sacola ainda está vazia.<br><br>Que tal encontrar uma história para chamar de sua?</div>';
+  return;
+ }
+
+ container.innerHTML=cart.map(p=>`
+  <div class="cart-item">
+   <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/100x120/f7edf1/71334f?text=Livra'">
+   <div>
+    <h4>${p.name}</h4><p>${money(p.price*p.quantity)}</p>
+    <div class="quantity">
+     <button onclick="changeQuantity(${p.id},-1)">−</button>
+     <span>${p.quantity}</span>
+     <button onclick="changeQuantity(${p.id},1)">+</button>
+    </div>
+    <button class="remove" onclick="removeItem(${p.id})">Remover</button>
+   </div>
+   <strong style="font-size:11px">${money(p.price)}</strong>
+  </div>
+ `).join("");
+}
+
+function changeQuantity(id,change){
+ const item=cart.find(p=>p.id===id);
+ if(!item)return;
+ item.quantity+=change;
+ if(item.quantity<=0)cart=cart.filter(p=>p.id!==id);
+ updateCart();
+}
+
+function removeItem(id){
+ cart=cart.filter(p=>p.id!==id);
+ updateCart();
+}
+
+function openCart(){
+ document.getElementById("cartPanel").classList.add("open");
+ document.getElementById("overlay").classList.add("open");
+}
+function closeCart(){
+ document.getElementById("cartPanel").classList.remove("open");
+ document.getElementById("overlay").classList.remove("open");
+}
+function openCheckout(){
+ if(!cart.length)return;
+ closeCart();
+ document.getElementById("checkoutModal").classList.add("open");
+}
+function closeCheckout(){
+ document.getElementById("checkoutModal").classList.remove("open");
+}
+
+document.getElementById("orderForm").addEventListener("submit",function(event){
+ event.preventDefault();
+ if(!cart.length)return;
+
+ const data=new FormData(this);
+ const total=cart.reduce((s,p)=>s+p.price*p.quantity,0);
+ const items=cart.map(p=>`• ${p.name} — ${p.quantity} un. — ${money(p.price*p.quantity)}`).join("\n");
+
+ const message=`Olá! Vim pelo site da Livra e gostaria de finalizar meu pedido. 📚
+
+*MEU PEDIDO*
+${items}
+
+*Total dos livros: ${money(total)}*
+Frete: a confirmar
+
+*DADOS PARA ENTREGA*
+Nome: ${data.get("customerName")}
+WhatsApp: ${data.get("customerPhone")}
+CEP: ${data.get("customerCep")}
+Endereço: ${data.get("customerStreet")}, ${data.get("customerNumber")}
+Complemento: ${data.get("customerComplement")||"Não informado"}
+Bairro: ${data.get("customerNeighborhood")}
+Cidade: ${data.get("customerCity")} - ${data.get("customerState")}
+
+*PAGAMENTO*
+${data.get("paymentMethod")}
+
+*OBSERVAÇÕES*
+${data.get("orderNotes")||"Nenhuma"}
+
+Aguardo a confirmação da disponibilidade, do frete e das orientações para pagamento. Obrigado(a)!`;
+
+ const url=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+ window.open(url,"_blank");
+ closeCheckout();
+});
+
+renderProducts();
+updateCart();
+</script>
+</body>
+</html>
